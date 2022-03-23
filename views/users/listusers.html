@@ -1,0 +1,138 @@
+{% extends '../layout.html' %}
+
+{% block content %}
+
+<!-- BEGIN PAGE HEADER-->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="index.html">Home</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="#">Manage Users</a>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+        <div id="dashboard-report-range" class="pull-right tooltips btn btn-sm btn-default" data-container="body"
+            data-placement="bottom" data-original-title="Change dashboard date range">
+            <i class="icon-calendar"></i>&nbsp; <span class="thin uppercase visible-lg-inline-block"></span>&nbsp; <i
+                class="fa fa-angle-down"></i>
+        </div>
+    </div>
+</div>
+<h3 class="page-title">
+    Users <small>Listing & Managing</small>
+</h3>
+<!-- END PAGE HEADER-->
+
+<!-- BEGIN DASHBOARD STATS -->
+<div class="row">
+    <div class="col-md-12 text-right">
+        <div class="btn-group">
+            <a href="/users/add" id="sample_editable_1_new" class="btn green">
+            Add New <i class="fa fa-plus"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-scrollable">
+            <table class="table table-striped table-hover table-bordered dataTable no-footer" id="sample_editable_1"
+                role="grid" aria-describedby="sample_editable_1_info">
+                <thead>
+                    <tr role="row">
+                        <th class="sorting_asc" tabindex="0" aria-controls="sample_editable_1" rowspan="1" colspan="1"
+                            style="width: 165px;">
+                            #
+                        </th>
+                        <th class="sorting_asc" tabindex="0" aria-controls="sample_editable_1" rowspan="1" colspan="1"
+                            style="width: 165px;">
+                            Name
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="sample_editable_1" rowspan="1" colspan="1"
+                            style="width: 207px;">
+                            Email
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="sample_editable_1" rowspan="1" colspan="1"
+                            style="width: 115px;">
+                            Phone
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="sample_editable_1" rowspan="1" colspan="1"
+                            style="width: 138px;">
+                            Date of birth
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="sample_editable_1" rowspan="1" colspan="1"
+                            style="width: 138px;">
+                            Address
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="sample_editable_1" rowspan="1" colspan="1"
+                            style="width: 82px;">
+                            Edit
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="sample_editable_1" rowspan="1" colspan="1"
+                            style="width: 112px;">
+                            Delete
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if data %}
+                        {% for user in data -%}
+                        <tr role="row" class="odd">
+                            <td class="sorting_1">
+                                {{loop.index}}
+                            </td>
+                            <td>
+                                {{user['name']}}
+                            </td>
+                            <td>
+                                {{user['email']}}
+                            </td>
+                            <td class="center">
+                                {{user['contact']}}
+                            </td>
+                            <td class="center">
+                                {{user['dob']}}
+                            </td>
+                            <td class="center">
+                                {{user['address']['line1']}}, {{user['address']['line2']}}, {{user['address']['city']}}, {{user['address']['state']}}, {{user['address']['zip']}}
+                            </td>
+                            <td>
+                                <a class="edit" href="/users/edit/{{user['_id']}}">
+                                    Edit </a>
+                            </td>
+                            <td>
+                                <a class="delete" href="/users/delete/{{user['_id']}}">
+                                    Delete </a>
+                            </td>
+                        </tr>
+                        {%- endfor %}
+                    {% else %}
+                        <tr>
+                            <td class="center" >NO record found</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+{% if total_pages > 1 %}
+<div style="text-align: end;">
+    <a style="border: 1px solid; padding: 6px;" href="/users/list/1">First</a>
+    {% if prev_page  %}
+        <a style="border: 1px solid; padding: 6px;" href="/users/list/{{prev_page}}">Prev</a>
+    {% endif %}
+    {% if next_page %}
+        <a style="border: 1px solid; padding: 6px;" href="/users/list/{{next_page}}">Next</a>
+    {% endif %}
+    <a style="border: 1px solid; padding: 6px;" href="/users/list/{{total_pages}}">Last</a>
+</div>
+{% endif %}
+<!-- END DASHBOARD STATS -->
+
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<form class="login-form" action="loginuser" method="post">
+    <h3 class="form-title">Sign In</h3>
+    <div class="alert alert-danger display-hide">
+        <button class="close" data-close="alert"></button>
+        <span class="login-err">
+        Enter any username and password. </span>
+    </div>
+    <div class="form-group">
+        <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+        <label class="control-label visible-ie8 visible-ie9">Username</label>
+        <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="Username" name="username" id="username"/>
+    </div>
+    <div class="form-group">
+        <label class="control-label visible-ie8 visible-ie9">Password</label>
+        <input class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" name="password" id="password"/>
+    </div>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-success uppercase">Login</button>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block js %}
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+// document.querySelector('.login-form').addEventListener('submit', e => {
+//     e.preventDefault();
+//     login(document.getElementById('username'), document.getElementById('password'))
+// })
+
+// const loginAbc = async (username, password) => {
+//     try{
+//         const username = document.getElementById('username').value;
+//         const password = console.log(document.getElementById('password').value;
+//         const res = await axios({
+//         method : 'POST',
+//         url : '/loginuser',
+//         data : {
+//             username, 
+//             password
+//         }
+//     })
+//     console.log(res);
+//     }
+//     catch(err){
+//         console.log('error',err);
+//     }
+    
+// }
+
+// $('.login-form').submit((e) => {
+//     e.preventDefault();
+//     $.ajax({
+//         url: $(this).attr('action'),
+//             type: 'POST',
+//             data: $(this).serialize(),
+//             success: function (data, statusText, xhr) {
+//                 window.location.href = data.url;
+//             },
+//             error: function(xhr, status, error){
+//                 console.log(xhr.responseJSON);
+//                 $('.login-err').html('invalid')
+//             }
+//     })
+
+// })
+
+function loginUser(){
+    $.ajax({
+        url: $('.login-form').attr('action'),
+            type: 'POST',
+            data: $('.login-form').serialize(),
+            success: function (data, statusText, xhr) {
+                window.location.href = data.url;
+            },
+            error: function(xhr, status, error){
+                console.log(xhr.responseJSON);
+                $('.alert-danger').show();
+                $('.login-err').text('Invalid credentials')
+            }
+    })
+
+
+}
+
+</script>    
+{% endblock %}

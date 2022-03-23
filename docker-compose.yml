@@ -1,0 +1,31 @@
+# Yaml file
+services: 
+
+  explogin-aps: 
+    build: 
+       context: .
+    # container_name: explogin-aps
+    container_name: ${CONTAINERNAME}
+    volumes:
+      - .:/home/app
+    depends_on: 
+      - mongoes
+    ports: 
+      - "3050:3050"
+    restart: always
+
+
+  mongoes: 
+    container_name: exp-dbss
+    # image: "mongo:latest"
+    image: "${DATABASEIMAGENAME}:latest"
+    ports: 
+      - "27017:27017"
+    restart: always
+    volumes: 
+      # - exp-dbs:/data/db
+      - ${DATABASEVOLUMENAME}:/data/db
+
+volumes: 
+  mongodb-data:      
+version: "3.2"
