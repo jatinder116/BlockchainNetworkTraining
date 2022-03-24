@@ -1,13 +1,12 @@
 # Yaml file
 services: 
 
-  explogin-aps: 
+  explogin-apss: 
     build: 
        context: .
-    # container_name: explogin-aps
-    container_name: ${CONTAINERNAME}
+    container_name: ${CONTAINER_NAME}
     volumes:
-      - .:/home/app
+      - .:/home/nodedummy/app
     depends_on: 
       - mongoes
     ports: 
@@ -16,15 +15,13 @@ services:
 
 
   mongoes: 
-    container_name: exp-dbss
-    # image: "mongo:latest"
-    image: "${DATABASEIMAGENAME}:latest"
+    container_name: ${CONTAINER_DATABASE_NAME}
+    image: "${DATABASE_IMAGE_NAME}:latest"
     ports: 
       - "27017:27017"
-    restart: always
+    # restart: always
     volumes: 
-      # - exp-dbs:/data/db
-      - ${DATABASEVOLUMENAME}:/data/db
+      - ${DATABASE_VOLUME_NAME}:/data/db
 
 volumes: 
   mongodb-data:      

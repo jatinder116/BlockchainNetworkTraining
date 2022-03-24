@@ -1,3 +1,5 @@
+'use strict';
+require('dotenv').config();
 require('./connection');
 var createError = require('http-errors');
 var express = require('express');
@@ -6,7 +8,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var swig = require('swig');
 // const validator = require('express-validator');
-require('dotenv').config();
 var loginRouter = require('./src/v1/login/loginRoute.js');
 var dashboardRouter = require('./src/v1/dashboard/dashboardRoute.js');
 var usersRouter = require('./src/v1/users/usersRoute.js');
