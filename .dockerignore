@@ -1,6 +1,7 @@
 node_modules/
-./package-lock.json
-
+Dockerfile
+.dockerignore
+docker-compose.yml
 #It manages to rebuild without any problem.
 #The only downside if I want a clean slate of the database, I need to run sudo rm -rf data to remove the folder.
 data/

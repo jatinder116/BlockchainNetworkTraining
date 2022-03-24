@@ -1,25 +1,27 @@
 # Yaml file
 services: 
-
-  explogin-apss: 
+  # app service=====
+  explogin-app: 
     build: 
        context: .
     container_name: ${CONTAINER_NAME}
     volumes:
-      - .:/home/nodedummy/app
+      - .:/home/app
     depends_on: 
       - mongoes
     ports: 
       - "3050:3050"
     restart: always
+    environment:
+      - MONGO_PATH=mongodb://exp-db:27017/
 
-
+  # Database sevice
   mongoes: 
-    container_name: ${CONTAINER_DATABASE_NAME}
+    container_name: exp-db
     image: "${DATABASE_IMAGE_NAME}:latest"
     ports: 
-      - "27017:27017"
-    # restart: always
+      - "2717:27017"
+    restart: always
     volumes: 
       - ${DATABASE_VOLUME_NAME}:/data/db
 

@@ -1,5 +1,5 @@
 # FROM instruction to set the application’s base image
-FROM node:alpine
+FROM node:14.17.2
 
 RUN mkdir -p /home/app
 # RUN mkdir -p /usr/src/app
@@ -18,7 +18,8 @@ COPY package*.json ./
 COPY . .
 
 
-RUN npm install --force
+# RUN npm install --force
+RUN npm ci
 
 # RUN npm install pm2 -g
 # RUN chown -R app /home/app
